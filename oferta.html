@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Achadinho · Adê 🔥 Achadinhos no Queima</title>
+<meta name="description" content="Achadinho garimpado no Mercado Livre pela Adê. Veja o preço de hoje e receba ofertas todo dia no grupo.">
+<meta name="theme-color" content="#0f1b33">
+<link rel="icon" href="ade-320.jpg">
+<style>
+  :root { --bg:#0f1b33; --bg-2:#16264a; --card:#1b2d55; --text:#f6f1ea; --muted:#b9c2d6; --fogo:#ff7a1a; --fogo-2:#ffb347; --zap:#25d366; --borda:rgba(255,255,255,.08); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { min-height: 100vh; color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255,122,26,.22), transparent 70%), linear-gradient(180deg, var(--bg-2), var(--bg)); }
+  main { max-width: 440px; margin: 0 auto; padding: 24px 16px 32px; text-align: center; }
+  .topo { display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; margin-bottom: 20px; }
+  .topo img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 0 2px var(--fogo); }
+  .foto { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 20px; display: block; }
+  h1 { font-size: 1.2rem; line-height: 1.35; margin: 16px 0 6px; }
+  .aviso { color: var(--muted); font-size: .85rem; margin: 0 0 18px; }
+  .btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 56px; padding: 14px 18px; margin-bottom: 12px;
+    border-radius: 16px; text-decoration: none; font-weight: 700; font-size: 1.05rem; border: none; }
+  .btn-ml { background: linear-gradient(135deg, var(--fogo), var(--fogo-2)); color: #2b1300; }
+  .btn-zap { background: var(--zap); color: #06321a; }
+  .sub { display: block; font-weight: 500; font-size: .82rem; }
+  .ou { color: var(--muted); font-size: .85rem; margin: 18px 0 10px; }
+  footer { margin-top: 28px; font-size: .78rem; color: var(--muted); line-height: 1.6; }
+  footer a { color: var(--fogo-2); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <a class="topo" href="./"><img src="ade-320.jpg" width="40" height="40" alt="">Adê 🔥 Achadinhos no Queima</a>
+
+  <div id="oferta" hidden>
+    <img class="foto" id="foto" alt="">
+    <h1 id="nome"></h1>
+    <p class="aviso">O preço muda rápido no Mercado Livre — confira o valor de hoje na página da loja.</p>
+    <a class="btn btn-ml" id="ir" rel="noopener sponsored" target="_blank">Ver preço de hoje no Mercado Livre</a>
+  </div>
+
+  <p class="ou" id="ou">Quer receber achadinhos assim todo dia, de graça?</p>
+  <a class="btn btn-zap" data-destino="grupo-geral-oferta" href="https://chat.whatsapp.com/CBDda2gvzBe7aOjYGu5xhD?mode=gi_t" target="_blank" rel="noopener">
+    <span>Entrar no Grupo do Zap 🔥<span class="sub">Ofertas quentinhas todo dia</span></span>
+  </a>
+  <a class="btn" href="./" style="background:var(--card);color:var(--text);border:1px solid var(--borda)">Ver todos os achadinhos</a>
+
+  <footer>
+    Link de afiliado: posso receber uma comissão quando você compra por ele, sem nenhum custo extra para você.<br>
+    <a href="privacidade.html">Política de Privacidade</a>
+  </footer>
+</main>
+<script>
+  // Página estática: tudo vem da URL do Pin, e cada campo é VALIDADO antes de
+  // usar. O botão só leva para meli.la/<código> e a foto só vem do CDN do
+  // Mercado Livre — sem isso, esta página viraria redirecionador aberto para
+  // qualquer site.
+  const q = new URLSearchParams(location.search);
+  const codigo = q.get('c') || '';
+  const nome = (q.get('n') || '').slice(0, 160);
+  const img = q.get('img') || '';
+  const codigoOk = /^[A-Za-z0-9]{4,16}$/.test(codigo);
+  let imgOk = false;
+  try { const u = new URL(img); imgOk = u.protocol === 'https:' && /(^|\.)mlstatic\.com$/.test(u.hostname); } catch (e) {}
+
+  if (codigoOk) {
+    document.getElementById('ir').href = 'https://meli.la/' + codigo;
+    document.getElementById('nome').textContent = nome || 'Achadinho do dia';
+    if (imgOk) { const f = document.getElementById('foto'); f.src = img; f.alt = nome; } else document.getElementById('foto').hidden = true;
+    document.getElementById('oferta').hidden = false;
+    document.title = (nome ? nome + ' · ' : '') + 'Adê 🔥 Achadinhos no Queima';
+  } else {
+    document.getElementById('ou').textContent = 'Essa oferta não está mais aqui, mas tem achadinho novo todo dia:';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Autorização Pinterest · Achadinhos no Queima</title>
+<style>
+  :root { --bg:#0f1b33; --card:#16264a; --text:#f6f1ea; --muted:#b9c2d6; --fogo:#ffb347; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 560px; margin: 0 auto; padding: 40px 16px; }
+  h1 { font-size: 1.3rem; }
+  .code { background: var(--card); border-radius: 12px; padding: 14px; font: 15px/1.4 ui-monospace, Menlo, monospace; word-break: break-all; }
+  button { margin-top: 12px; padding: 10px 16px; border-radius: 10px; border: 0; background: var(--fogo); font-weight: 700; cursor: pointer; }
+  p { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Autorização do Pinterest</h1>
+  <div id="ok" hidden>
+    <p>Copie o código abaixo e rode no servidor: <code>node scripts/pinterest-autorizar.js &lt;código&gt;</code>. Ele vale poucos minutos.</p>
+    <div class="code" id="code"></div>
+    <button type="button" id="copiar">Copiar código</button>
+  </div>
+  <p id="erro" hidden></p>
+</main>
+<script>
+  // Só lê o ?code= da URL e mostra. Nada é enviado a lugar nenhum.
+  const q = new URLSearchParams(location.search);
+  const code = q.get('code');
+  if (code) {
+    document.getElementById('code').textContent = code;
+    document.getElementById('ok').hidden = false;
+    document.getElementById('copiar').onclick = () => navigator.clipboard.writeText(code);
+  } else {
+    const e = document.getElementById('erro');
+    e.textContent = q.get('error') ? 'O Pinterest recusou a autorização: ' + q.get('error') : 'Nenhum código recebido.';
+    e.hidden = false;
+  }
+</script>
+</body>
+</html>
